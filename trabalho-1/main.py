@@ -60,8 +60,6 @@ if __name__ == '__main__':
     chute = 2.5
     intervalo = [2, 3]
 
-    
-
     n = int(input("Digite o número de foguetes: "))
 
     for i in range(1, n+1):
@@ -71,10 +69,15 @@ if __name__ == '__main__':
         y = a*x - x*log(x)
 
         print("Método do Ponto Falso:")
-        print("Resultado: {}".format(posicao_falsa(y, intervalo, epsilon)))
-
-        print("\nMétodo de Newton-Raphson:")
         try:
-            print("Resultado: {}".format(newton_raphson(y, chute, epsilon)))
+            print("Resultado de 'd': {}".format(posicao_falsa(y, intervalo, epsilon)))
+        except Exception:
+            print("Impossível calcular")
+
+        print("="*100)
+
+        print("Método de Newton-Raphson:")
+        try:
+            print("Resultado de 'd': {}".format(newton_raphson(y, chute, epsilon)))
         except Exception:
             print("Impossível calcular")
