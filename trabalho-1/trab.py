@@ -1,6 +1,6 @@
 from sympy import *
 
-
+#teste
 def novo_intervalo(y, intervalo, x3):
     y1 = y.subs(x, intervalo[0]).evalf()
     y2 = y.subs(x, intervalo[1]).evalf()
