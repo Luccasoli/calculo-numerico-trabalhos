@@ -1,6 +1,6 @@
 from sympy import *
 
-#teste
+
 def novo_intervalo(y, intervalo, x3):
     y1 = y.subs(x, intervalo[0]).evalf()
     y2 = y.subs(x, intervalo[1]).evalf()
@@ -27,10 +27,14 @@ def newton_raphson(y, chute, epsilon):
 
         novo_chute = chute - resultado_chute/resultado_derivada_no_ponto
 
+        if count == 1:
+            x0 = chute
+
         resultado_novo_chute = funcao_no_ponto(y, novo_chute)
         print("Tentativa {}: x = {}, f(x) = {}".format(
             count, novo_chute, resultado_novo_chute))
         if abs(novo_chute - chute) < epsilon or abs(resultado_novo_chute) < epsilon:
+            print("Erro Absoluto: {}".format(erro_absoluto(x0,chute)))
             return novo_chute
         chute = novo_chute
 
@@ -43,10 +47,14 @@ def newton_raphson_modificado(y, chute, epsilon):
 
         novo_chute = chute - resultado_chute/resultado_derivada_no_ponto
 
+        if count == 1:
+            x0 = chute
+
         resultado_novo_chute = funcao_no_ponto(y, novo_chute)
         print("Tentativa {}: x = {}, f(x) = {}".format(
             count, novo_chute, resultado_novo_chute))
         if abs(novo_chute - chute) < epsilon or abs(resultado_novo_chute) < epsilon:
+            print("Erro Absoluto: {}".format(erro_absoluto(x0,chute)))
             return novo_chute
         chute = novo_chute
 
@@ -57,14 +65,22 @@ def posicao_falsa(y, intervalo, epsilon):
         novo = (intervalo[1]*funcao_no_ponto(y, intervalo[0]) - intervalo[0]*funcao_no_ponto(
             y, intervalo[1])) / (funcao_no_ponto(y, intervalo[0]) - funcao_no_ponto(y, intervalo[1]))
 
+        if count == 1:
+            x0 = novo
+
         resultado_funcao = funcao_no_ponto(y, novo)
         print("Tentativa {}: a = {}, b = {}, x = {}, f(x) = {}".format(
             count, intervalo[0], intervalo[1], novo, resultado_funcao))
         if abs(resultado_funcao) < epsilon or abs(intervalo[0] - intervalo[1]) < epsilon:
+            print("Erro Absoluto: {}".format(erro_absoluto(x0,novo)))
             return novo
         intervalo = novo_intervalo(y, intervalo, novo)
 
     return 'Incapaz de calcular'
+
+def erro_absoluto(original,estimado):
+    ea = (original - estimado) / estimado
+    return ea
 
 
 if __name__ == '__main__':
