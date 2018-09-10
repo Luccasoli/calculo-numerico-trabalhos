@@ -80,7 +80,7 @@ def posicao_falsa(y, intervalo, epsilon):
 
 def erro_absoluto(original,estimado):
     ea = (original - estimado) / estimado
-    return ea
+    return abs(ea)
 
 
 if __name__ == '__main__':
