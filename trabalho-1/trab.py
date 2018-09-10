@@ -31,8 +31,8 @@ def newton_raphson(y, chute, epsilon):
             x0 = chute
 
         resultado_novo_chute = funcao_no_ponto(y, novo_chute)
-        print("Tentativa {}: x = {}, f(x) = {}".format(
-            count, novo_chute, resultado_novo_chute))
+        print("Tentativa {}: x = {}, f(x) = {}, f`(x) = {}".format(
+            count, novo_chute, resultado_novo_chute, resultado_derivada_no_ponto))
         if abs(novo_chute - chute) < epsilon or abs(resultado_novo_chute) < epsilon:
             print("Erro Absoluto: {}".format(erro_absoluto(x0,chute)))
             return novo_chute
@@ -51,8 +51,8 @@ def newton_raphson_modificado(y, chute, epsilon):
             x0 = chute
 
         resultado_novo_chute = funcao_no_ponto(y, novo_chute)
-        print("Tentativa {}: x = {}, f(x) = {}".format(
-            count, novo_chute, resultado_novo_chute))
+        print("Tentativa {}: x = {}, f(x) = {}, f`(x) = {}".format(
+            count, novo_chute, resultado_novo_chute, resultado_derivada_no_ponto))
         if abs(novo_chute - chute) < epsilon or abs(resultado_novo_chute) < epsilon:
             print("Erro Absoluto: {}".format(erro_absoluto(x0,chute)))
             return novo_chute
