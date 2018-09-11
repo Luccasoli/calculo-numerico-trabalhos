@@ -95,14 +95,23 @@ def erro_absoluto(original, estimado, casas_decimais):
     ea = N((original - estimado) / estimado, casas_decimais)
     return abs(ea)
 
+def situacao_foguete(d, descolamento_maximo):
+    
+    if d > descolamento_maximo:
+        print("O deslocamento superou {} cm, portanto o foguete explodiu!".format(descolamento_maximo))
+    else:
+        print("O deslocamento ficou abaixo de {} cm, portanto o foguete permaneceu operacional!".format(descolamento_maximo))
+
 
 if __name__ == '__main__':
     a = 1
+    descolamento_máximo = 2
     x = Symbol('x')
     casas_decimais = 5
-    epsilon = 0.00001
     intervalo_isolamento = (-100, 100) # O intervalo do eixo X que será verificado
     
+    epsilon = N(input("Digite o valor de precisão ϵ (ex: 10^-5): "), casas_decimais)
+    print(epsilon)
     n = int(input("Digite o número de foguetes: "))
 
     for i in range(1, n+1):
@@ -121,7 +130,10 @@ if __name__ == '__main__':
 
                 print("\nMétodo do Posição Falsa:")
                 try:
-                    print("Resultado de 'd': {}".format(posicao_falsa(y, intervalo, epsilon, casas_decimais)))
+                    d = posicao_falsa(y, intervalo, epsilon, casas_decimais)
+                    print("Resultado de 'd': {}".format(d))
+                    situacao_foguete(d, descolamento_máximo)
+
                 except Exception:
                     print("Impossível calcular")
 
@@ -129,14 +141,20 @@ if __name__ == '__main__':
 
                 print("\nMétodo de Newton-Raphson:")
                 try:
-                    print("Resultado de 'd': {}".format(newton_raphson(y, chute, epsilon, casas_decimais)))
+                    d = newton_raphson(y, chute, epsilon, casas_decimais)
+                    print("Resultado de 'd': {}".format(d))
+                    situacao_foguete(d, descolamento_máximo)
+
                 except Exception:
                     print("Impossível calcular")
                 print("="*80)
 
                 print("\nMétodo de Newton-Raphson-Modificado:")
                 try:
-                    print("Resultado de 'd': {}".format(newton_raphson_modificado(y, chute, epsilon, casas_decimais)))
+                    d = newton_raphson_modificado(y, chute, epsilon, casas_decimais)
+                    print("Resultado de 'd': {}".format(d))
+                    situacao_foguete(d, descolamento_máximo)
+
                 except Exception:
                     print("Impossível calcular")
 
