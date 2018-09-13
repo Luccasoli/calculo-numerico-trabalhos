@@ -65,22 +65,23 @@ def newton_raphson_modificado(y, chute, epsilon, casas_decimais):
 
     return 'Incapaz de calcular'                                                            # "Desiste" ao superar o limite máximo de iterações.
 
-def posicao_falsa(y, intervalo, epsilon, casas_decimais):
-    for count in range(1, 20):
-        novo = (intervalo[1]*funcao_no_ponto(y, intervalo[0], casas_decimais) - intervalo[0]*funcao_no_ponto(y, intervalo[1], casas_decimais)) / (funcao_no_ponto(y, intervalo[0], casas_decimais) - funcao_no_ponto(y, intervalo[1], casas_decimais))
+def posicao_falsa(y, intervalo, epsilon, casas_decimais): #função posição falsa
+    for count in range(1, 20):   #Admite 20 iteraçes
+        novo = (intervalo[1]*funcao_no_ponto(y, intervalo[0], casas_decimais) - intervalo[0]*funcao_no_ponto(y, intervalo[1], casas_decimais)) / (funcao_no_ponto(y, intervalo[0], casas_decimais) - funcao_no_ponto(y, intervalo[1], casas_decimais)) 
+        #formula do tipo x=af(b)-f(a)/f(b)-f(a) onde a e b são valores do intervalo  
 
-        if count == 1:
+        if count == 1:                                                       #calculo a partir do resultado
             x0 = novo
 
-        resultado_funcao = funcao_no_ponto(y, novo, casas_decimais)
+        resultado_funcao = funcao_no_ponto(y, novo, casas_decimais)                    #Retorna o resultado de f(xcount+1)
         print("Tentativa {}: a = {}, b = {}, x = {}, f(x) = {}".format(
             count, intervalo[0], intervalo[1], novo, resultado_funcao))
-        if abs(resultado_funcao) < epsilon or abs(intervalo[0] - intervalo[1]) < epsilon:
-            print("Erro Absoluto: {}".format(erro_absoluto(x0, novo, casas_decimais)))
-            return novo
-        intervalo = novo_intervalo(y, intervalo, novo)
+        if abs(resultado_funcao) < epsilon or abs(intervalo[0] - intervalo[1]) < epsilon:            #Checa condições de parada
+            print("Erro Absoluto: {}".format(erro_absoluto(x0, novo, casas_decimais)))               #Se nao for atendida qualquer condição retorna o valor de Xcount+2
+            return novo                                                                              #Caso nao seja satisfetia nenhuma condição, atualiza o valor do chute
+        intervalo = novo_intervalo(y, intervalo, novo)                                               #para a proxima iteração
 
-    return 'Incapaz de calcular'
+    return 'Incapaz de calcular'                                                                     #"Desiste" ao superar o limite máximo de iterações
 
 def isolamento(y, intervalo_isolamento):    # Responsável pelo cálculo do intervalo
     intervalos = []
